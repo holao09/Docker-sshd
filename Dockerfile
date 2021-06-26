@@ -6,8 +6,6 @@ RUN sudo apt-get update
 RUN sudo apt-get install -y openssh-server
 RUN sudo mkdir /var/run/sshd
 
-RUN sudo su && echo 'root:root' |chpasswd
-
 RUN sudo sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
 RUN sudo sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
 
