@@ -6,9 +6,9 @@ RUN sudo apt-get update
 RUN sudo apt-get install -y openssh-server
 
 ADD authorized_keys /home/build/.ssh
-RUN chown -R build:build /home/build 
-RUN chmod 700 /home/build/.ssh && chmod 600 /home/build/.ssh/authorized_keys
-RUN ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -q -N ""
+RUN sudo chown -R build:build /home/build 
+RUN sudo chmod 700 /home/build/.ssh && sudo chmod 600 /home/build/.ssh/authorized_keys
+RUN sudo ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key -q -N ""
 
 RUN sudo apt-get clean && \
     sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
