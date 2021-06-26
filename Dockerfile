@@ -1,4 +1,4 @@
-FROM       ubuntu:18.04
+FROM       openwrtorg/sdk:x86_64-19.07.7
 MAINTAINER Viet Nguyen "<mrholao09@gmail.com>"
 
 RUN apt-get update
