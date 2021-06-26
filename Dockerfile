@@ -5,8 +5,6 @@ RUN sudo apt-get update
 
 RUN sudo apt-get install -y openssh-server
 
-RUN echo "build:build" | chpasswd
-
 ADD authorized_keys /home/build/.ssh
 RUN chown -R build:build /home/build 
 RUN chmod 700 /home/build/.ssh && chmod 600 /home/build/.ssh/authorized_keys
