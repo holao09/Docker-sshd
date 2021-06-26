@@ -4,7 +4,7 @@ MAINTAINER Viet Nguyen "<mrholao09@gmail.com>"
 RUN sudo apt-get update
 
 RUN sudo apt-get install -y openssh-server
-
+RUN sudo mkdir -p /home/build/.ssh
 ADD authorized_keys /home/build/.ssh
 RUN sudo chown -R build:build /home/build 
 RUN sudo chmod 700 /home/build/.ssh && sudo chmod 600 /home/build/.ssh/authorized_keys
