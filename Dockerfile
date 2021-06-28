@@ -1,18 +1,31 @@
 FROM       openwrtorg/sdk:x86_64-19.07.7
 MAINTAINER Viet Nguyen "<mrholao09@gmail.com>"
 
-RUN sudo apt-get update
+USER root:root
 
-RUN sudo apt-get install -y openssh-server
-RUN sudo mkdir -p /home/build/.ssh
-ADD authorized_keys /home/build/.ssh
-RUN sudo chown -R build:build /home/build 
-RUN sudo chmod 700 /home/build/.ssh && sudo chmod 600 /home/build/.ssh/authorized_keys
-RUN sudo rm -rf /etc/ssh/ssh_host_rsa_key && \
-    sudo ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -q -N ""
+RUN apt-get update
 
-RUN sudo apt-get clean && \
-    sudo rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+RUN apt-get install -y openssh-server
+RUN mkdir /var/run/sshd
+
+RUN echo 'root:root' |chpasswd
+
+RUN sed -ri 's/^#?PermitRootLogin\s+.*/PermitRootLogin yes/' /etc/ssh/sshd_config
+RUN sed -ri 's/UsePAM yes/#UsePAM yes/g' /etc/ssh/sshd_config
+
+RUN mkdir /root/.ssh
+
+ADD authorized_keys  /root/.ssh
+
+RUN sudo chown -R root:root /root 
+
+RUN chmod 700 /root/.ssh && chmod 600 /root/.ssh/authorized_keys
+
+RUN rm -rf /etc/ssh/ssh_host_rsa_key && \
+    ssh-keygen -t rsa -b 4096 -f /etc/ssh/ssh_host_rsa_key -q -N ""
+
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 EXPOSE 22
 
