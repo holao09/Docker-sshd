@@ -1,4 +1,4 @@
-FROM       openwrtorg/sdk:x86_64-19.07.7
+FROM       openwrtorg/imagebuilder:ramips-mt7620-openwrt-21.02
 MAINTAINER Viet Nguyen "<mrholao09@gmail.com>"
 
 USER root:root
